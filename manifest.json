@@ -1,0 +1,50 @@
+{
+	"manifest_version": 3,
+	"name": "Chat Beautifier",
+	"version": "1.0",
+	"permissions": ["storage", "activeTab", "scripting", "tabs"],
+	"host_permissions": [
+		"*://chat.openai.com/*",
+		"*://*.chatgpt.com/*",
+		"*://chat.com/*",
+		"*://*.deepseek.com/*",
+		"*://claude.ai/*",
+		"*://perplexity.ai/*"
+	],
+	"action": {
+		"default_popup": "popup.html"
+	},
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://chat.openai.com/*",
+				"*://*.chatgpt.com/*",
+				"*://chat.com/*",
+				"*://*.deepseek.com/*",
+				"*://claude.ai/*",
+				"*://perplexity.ai/*"
+			],
+			"css": ["styles.css"],
+			"js": ["content.js"],
+			"run_at": "document_end"
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["styles.css", "tabManager.js"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"commands": {
+		"toggle-chat-tab-manager": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+L",
+				"mac": "Command+Shift+L"
+			},
+			"description": "Toggle Chat Tab Manager (Press again to close)"
+		}
+	}
+}

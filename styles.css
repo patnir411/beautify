@@ -1,0 +1,256 @@
+/* ===== Chat Beautifier: Cognitive Interface Optimization System ===== */
+
+/* Tab list and tab styles (No significant changes needed) */
+.tab-list {
+	margin-top: 15px;
+	border-top: 1px solid #eee;
+	padding-top: 10px;
+}
+
+.chat-tab {
+	display: flex;
+	align-items: center;
+	padding: 8px;
+	margin: 5px 0;
+	border-radius: 4px;
+	cursor: pointer;
+	background: #f8f9fa;
+}
+
+.chat-tab:hover {
+	background: #e9ecef;
+}
+
+/* ===== 1. Design System - Core Variables ===== */
+.chat-beautifier-active {
+	/* --- Typography --- */
+	--font-family-base: var(--font-family-base);
+	--font-family-code: "Space Mono", "Fira Code", monospace;
+	--font-weight-regular: 400;
+	--font-weight-bold: 700;
+	--line-height-base: var(--line-height-base);
+	--type-scale-base: var(--type-scale-base);
+	--letter-spacing: var(--letter-spacing);
+
+	/* --- Color Palette --- */
+	--color-surface-primary: var(--color-surface-primary);
+	--color-surface-secondary: #ffffff;
+	--color-text-primary: var(--color-text-primary);
+	--color-text-secondary: #5a5a5a;
+	--color-accent-primary: var(--color-accent-primary);
+	--color-accent-secondary: #7284e0;
+	--color-code-bg: #282a36;
+
+	/* --- Spacing & Radius --- */
+	--space-unit-base: var(--space-unit-base);
+	--border-radius-sm: 4px;
+	--border-radius-md: var(--border-radius-md);
+	--border-radius-lg: 14px;
+	--content-width: var(--content-width);
+
+	/* --- Shadow & Elevation --- */
+	--box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+	--box-shadow-md: 0 3px 9px rgba(0, 0, 0, 0.09);
+
+	/* --- Animation --- */
+	--transition-speed-base: var(--transition-speed-base);
+}
+
+/* Dark Mode Overrides (if user prefers dark theme) */
+@media (prefers-color-scheme: dark) {
+	.chat-beautifier-active {
+		--color-surface-primary: #181818;
+		--color-surface-secondary: #252525;
+		--color-text-primary: #e2e2e2;
+		--color-text-secondary: #a8a8a8;
+		--color-code-bg: #2d2d2d;
+		--box-shadow-md: 0 5px 20px rgba(0, 0, 0, 0.2);
+	}
+}
+
+/* ===== 2. Core Enhancements - Base Styles ===== */
+.chat-beautifier-active,
+.chat-beautifier-active #root {
+	font-family: var(--font-family-base) !important;
+	letter-spacing: var(--letter-spacing) !important;
+	color: var(--color-text-primary) !important;
+	background: var(--color-surface-primary) !important;
+	font-feature-settings: "kern" 1, "calt" 1, "liga" 1 !important;
+	font-optical-sizing: auto !important;
+}
+
+/* ===== 3. Typography Module ===== */
+.chat-beautifier-active .markdown\:prose,
+.chat-beautifier-active .text-message,
+.chat-beautifier-active .ba94db8a {
+	font-size: calc(1rem * var(--type-scale-base)) !important;
+	line-height: var(--line-height-base) !important;
+	color: var(--color-text-primary) !important;
+}
+
+.chat-beautifier-active .markdown\:prose h1,
+.chat-beautifier-active .text-message h1 {
+	font-size: calc(1.9rem * var(--type-scale-base)) !important;
+}
+.chat-beautifier-active .markdown\:prose h2,
+.chat-beautifier-active .text-message h2 {
+	font-size: calc(1.7rem * var(--type-scale-base)) !important;
+}
+.chat-beautifier-active .markdown\:prose h3,
+.chat-beautifier-active .text-message h3 {
+	font-size: calc(1.5rem * var(--type-scale-base)) !important;
+}
+.chat-beautifier-active .markdown\:prose h4,
+.chat-beautifier-active .text-message h4 {
+	font-size: calc(1.3rem * var(--type-scale-base)) !important;
+}
+
+.chat-beautifier-active .markdown\:prose p,
+.chat-beautifier-active .markdown\:prose ul,
+.chat-beautifier-active .markdown\:prose ol,
+.chat-beautifier-active .text-message p,
+.chat-beautifier-active .text-message ul,
+.chat-beautifier-active .text-message ol,
+.chat-beautifier-active .ba94db8a ul,
+.chat-beautifier-active .ba94db8a ol {
+	margin-bottom: calc(var(--space-unit-base) * 1.3) !important;
+}
+
+/* ===== 4. Message Bubbles Module ===== */
+.chat-beautifier-active .markdown\:prose > * > *:not(pre),
+.chat-beautifier-active
+	[data-message-author-role="user"]
+	> div
+	> div
+	> div
+	> div
+	> div,
+.chat-beautifier-active .ProseMirror p,
+.chat-beautifier-active .e1675d8b {
+	background: var(--color-surface-secondary) !important;
+	padding: calc(var(--space-unit-base) * 1.3) !important;
+	border-radius: var(--border-radius-lg) !important;
+	margin: calc(var(--space-unit-base) * 1.2) 0 !important;
+	box-shadow: var(--box-shadow-md) !important;
+	border: 1px solid rgba(0, 0, 0, 0.04) !important;
+	transition: transform var(--transition-speed-base) ease !important;
+
+	&:hover {
+		transform: translateY(-1px) !important;
+	}
+}
+
+/* Dark Mode Bubble Border Fix */
+@media (prefers-color-scheme: dark) {
+	.chat-beautifier-active [class*="message"],
+	.chat-beautifier-active form {
+		border-color: rgba(255, 255, 255, 0.06) !important;
+	}
+}
+
+/* ===== 5. Premium Code Blocks Module ===== */
+.chat-beautifier-active pre {
+	background: var(--color-code-bg) !important;
+	padding: calc(var(--space-unit-base) * 1.3) !important;
+	border-radius: var(--border-radius-md) !important;
+	font-family: var(--font-family-code) !important;
+	font-size: 0.88em !important;
+	position: relative !important;
+	overflow-x: auto !important;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(
+			90deg,
+			var(--color-accent-primary),
+			var(--color-accent-secondary)
+		) !important;
+	}
+
+	code {
+		color: #e2e8f0 !important;
+		text-shadow: 0 1px rgba(0, 0, 0, 0.25) !important;
+	}
+}
+
+/* ===== 6. Elegant Input Field Module ===== */
+.chat-beautifier-active form,
+.chat-beautifier-active .cbcaa82c {
+	max-width: var(--content-width) !important;
+	margin: calc(var(--space-unit-base) * 1.8) auto !important;
+	background: var(--color-surface-secondary) !important;
+	border-radius: var(--border-radius-lg) !important;
+	box-shadow: var(--box-shadow-sm) !important;
+	padding: calc(var(--space-unit-base) * 0.9) !important;
+	transition: all var(--transition-speed-base) ease !important;
+	border: 1px solid rgba(0, 0, 0, 0.04) !important;
+
+	&:focus-within {
+		box-shadow: var(--box-shadow-md) !important;
+		transform: translateY(-1px) !important;
+	}
+}
+
+/* ===== 7. Dynamic Layout Module ===== */
+.chat-beautifier-active .group:has(.flex.items-start), /* ChatGPT main container - refine if needed */
+.chat-beautifier-active .ds-chat-container /* DeepSeek main container - refine if needed */ {
+	max-width: var(--content-width) !important;
+	margin: 0 auto !important;
+	padding: calc(var(--space-unit-base) * 1.8) !important;
+}
+
+/* ===== 8. Hide Unnecessary Elements Module ===== */
+.chat-beautifier-active nav,
+.chat-beautifier-active [class*="sidebar"],
+.chat-beautifier-active .sticky.top-0.z-10.flex.min-h-\[60px\],
+.chat-beautifier-active [class*="header"],
+.chat-beautifier-active div[class*="Sidebar__Wrapper"],
+.chat-beautifier-active .dc04ec1d.a02af2e6 {
+	display: none !important;
+}
+
+/* ===== 9. Status Indicator Module ===== */
+.chat-beautifier-active::before {
+	content: "Beautifier Active";
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	background: rgba(var(--color-accent-primary-rgb), 0.92);
+	color: white;
+	padding: 6px 12px;
+	border-radius: var(--border-radius-md);
+	font-size: 0.8rem;
+	font-weight: var(--font-weight-bold);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	backdrop-filter: blur(5px);
+	box-shadow: var(--box-shadow-sm);
+	z-index: 9999;
+	opacity: 0.9;
+}
+
+/* ===== 10. Micro-Interactions Module ===== */
+.chat-beautifier-active {
+	scroll-behavior: smooth !important;
+
+	::-webkit-scrollbar {
+		width: 7px;
+		background: rgba(0, 0, 0, 0.04);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: var(--color-accent-primary);
+		border-radius: var(--border-radius-md);
+	}
+}
+
+/* ===== 11. Performance Optimizations Module ===== */
+.chat-beautifier-active * {
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+}

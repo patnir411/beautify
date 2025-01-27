@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				width: 350px;
+				padding: 20px;
+				font-family: Arial, sans-serif;
+			}
+			button {
+				width: 100%;
+				padding: 12px;
+				background: #007bff;
+				color: white;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				margin-bottom: 15px;
+			}
+
+			.setting-group {
+				margin-bottom: 20px;
+				padding: 15px;
+				border: 1px solid #eee;
+				border-radius: 6px;
+			}
+
+			.setting-label {
+				display: block;
+				margin-bottom: 8px;
+				font-weight: bold;
+				color: #333;
+			}
+
+			.setting-dropdown,
+			.setting-slider,
+			.setting-input {
+				width: 100%;
+				padding: 8px;
+				border-radius: 4px;
+				border: 1px solid #ccc;
+				margin-bottom: 10px;
+			}
+
+			.setting-slider {
+				margin: 10px 0;
+			}
+
+			.color-picker {
+				width: 100%;
+				height: 40px;
+				padding: 0;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			.setting-tabs {
+				display: flex;
+				margin-bottom: 15px;
+				border-bottom: 1px solid #eee;
+			}
+
+			.setting-tab {
+				padding: 8px 15px;
+				cursor: pointer;
+				border-bottom: 2px solid transparent;
+			}
+
+			.setting-tab.active {
+				border-bottom: 2px solid #007bff;
+				color: #007bff;
+			}
+
+			.tab-list {
+				margin-top: 15px;
+				border-top: 1px solid #eee;
+				padding-top: 10px;
+			}
+
+			.chat-tab {
+				display: flex;
+				align-items: center;
+				padding: 8px;
+				margin: 5px 0;
+				border-radius: 4px;
+				cursor: pointer;
+				background: #f8f9fa;
+			}
+
+			.chat-tab:hover {
+				background: #e9ecef;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="toggleBtn">Initialize...</button>
+		<div
+			id="status"
+			style="margin-top: 8px; font-size: 0.8em; margin-bottom: 15px"
+		></div>
+
+		<div class="new-session">
+			<h3>Start New Session</h3>
+			<button class="service-btn" data-service="chatgpt">ChatGPT</button>
+			<button class="service-btn" data-service="deepseek">
+				DeepSeek
+			</button>
+			<button class="service-btn" data-service="claude">Claude</button>
+		</div>
+
+		<!-- Below the toggle button -->
+		<div class="tab-list">
+			<h3>Active Chat Sessions</h3>
+			<div id="chatTabs"></div>
+		</div>
+
+		<div class="setting-tabs">
+			<div class="setting-tab active">Typography</div>
+			<div class="setting-tab">Colors</div>
+			<div class="setting-tab">Layout</div>
+		</div>
+
+		<div class="setting-group">
+			<label class="setting-label">Typography</label>
+			<select id="fontFamilyDropdown" class="setting-dropdown">
+				<option value="Satoshi">Satoshi</option>
+				<option value="Inter">Inter</option>
+				<option value="Arial">Arial</option>
+				<option value="Helvetica">Helvetica</option>
+				<option value="Times New Roman">Times New Roman</option>
+				<option value="Georgia">Georgia</option>
+				<option value="monospace">Monospace</option>
+				<option value="system-ui">System UI</option>
+			</select>
+
+			<label class="setting-label">Font Size</label>
+			<input
+				type="range"
+				id="fontSize"
+				class="setting-slider"
+				min="12"
+				max="24"
+				value="16"
+			/>
+
+			<label class="setting-label">Line Height</label>
+			<input
+				type="range"
+				id="lineHeight"
+				class="setting-slider"
+				min="1.2"
+				max="2"
+				step="0.1"
+				value="1.7"
+			/>
+
+			<label class="setting-label">Letter Spacing</label>
+			<input
+				type="range"
+				id="letterSpacing"
+				class="setting-slider"
+				min="-0.05"
+				max="0.1"
+				step="0.01"
+				value="0"
+			/>
+		</div>
+
+		<div class="setting-group">
+			<label class="setting-label">Colors</label>
+			<label>Primary Surface</label>
+			<input
+				type="color"
+				id="surfaceColor"
+				class="color-picker"
+				value="#fdfdfd"
+			/>
+
+			<label>Text Color</label>
+			<input
+				type="color"
+				id="textColor"
+				class="color-picker"
+				value="#242424"
+			/>
+
+			<label>Accent Color</label>
+			<input
+				type="color"
+				id="accentColor"
+				class="color-picker"
+				value="#5469d4"
+			/>
+		</div>
+
+		<div class="setting-group">
+			<label class="setting-label">Layout & Spacing</label>
+			<label>Content Width</label>
+			<input
+				type="range"
+				id="contentWidth"
+				class="setting-slider"
+				min="600"
+				max="1200"
+				step="50"
+				value="800"
+			/>
+
+			<label>Border Radius</label>
+			<input
+				type="range"
+				id="borderRadius"
+				class="setting-slider"
+				min="0"
+				max="20"
+				value="7"
+			/>
+
+			<label>Message Spacing</label>
+			<input
+				type="range"
+				id="messageSpacing"
+				class="setting-slider"
+				min="10"
+				max="40"
+				value="20"
+			/>
+		</div>
+
+		<div class="setting-group">
+			<label class="setting-label">Advanced</label>
+			<label>Code Block Theme</label>
+			<select id="codeTheme" class="setting-dropdown">
+				<option value="dracula">Dracula</option>
+				<option value="github">GitHub</option>
+				<option value="monokai">Monokai</option>
+			</select>
+
+			<label>Animation Speed</label>
+			<input
+				type="range"
+				id="animationSpeed"
+				class="setting-slider"
+				min="0.1"
+				max="0.5"
+				step="0.05"
+				value="0.18"
+			/>
+		</div>
+		<script src="tabManager.js"></script>
+		<script src="popup.js"></script>
+	</body>
+</html>
